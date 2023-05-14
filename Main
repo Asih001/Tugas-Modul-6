@@ -1,0 +1,115 @@
+Class Main
+
+
+package Tugas.com;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("1. Basic Calculator");
+        System.out.println("2. Scientific Calculator");
+        System.out.print("\nPilih jenis kalkulator\t: ");
+        int calculatorType = scanner.nextInt();
+        scanner.nextLine();
+
+        Calculator calculator;
+        if (calculatorType == 1) {
+            System.out.println("\n1. Tambah");
+            System.out.println("2. Kurang");
+            System.out.println("3. Perkalian");
+            System.out.println("4. Pembagian");
+            System.out.print("Pilih operasi\t: ");
+            int operationType = scanner.nextInt();
+            scanner.nextLine();
+
+            BasicCalculator basic = new BasicCalculator(10);
+            String input;
+            double number = 0;
+
+            do {
+                System.out.print("Masukkan angka (Ketik y jika sudah yakin) : ");
+                input = scanner.nextLine();
+
+                if (!input.equalsIgnoreCase("y")) {
+                    try {
+                        number = Double.parseDouble(input);
+                        basic.addNumber(number);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input tidak valid. Masukkan angka atau huruf x.");
+                    }
+                }
+            } while (!input.equalsIgnoreCase("y"));
+
+            double result = 0;
+
+            switch (operationType) {
+                case 1:
+                    result = basic.calculate();
+                    break;
+                case 2:
+                    result = basic.subtract();
+                    break;
+                case 3:
+                    result = basic.multiply();
+                    break;
+                case 4:
+                    result = basic.divide();
+                    break;
+                default:
+                    System.out.println("Operasi tidak valid");
+                    break;
+            }
+            System.out.println("\nHasil\t: " + result);
+            basic.clear();
+        } else if (calculatorType == 2) {
+            System.out.println("\n1. Bentuk Akar");
+            System.out.println("2. Bentuk Pangkat");
+            System.out.println("3. Pemfaktoran");
+            System.out.print("\nPilih operasi\t: ");
+            int operationType = scanner.nextInt();
+            scanner.nextLine();
+
+            ScientificCalculator scientific = new ScientificCalculator(10);
+            double number = 0;
+            switch (operationType) {
+                case 1:
+                    System.out.print("Masukkan angka\t: ");
+                    number = scanner.nextDouble();
+                    scanner.nextLine();
+                    scientific.setNumber(0, number);
+                    System.out.println("\nHasil\t: " + scientific.squareRoot());
+                    break;
+                case 2:
+                    System.out.print("Masukkan angka\t: ");
+                    number = scanner.nextDouble();
+                    scanner.nextLine();
+                    System.out.print("Masukkan pangkat\t: ");
+                    double power = scanner.nextDouble();
+                    scanner.nextLine();
+                    scientific.setNumber(0, number);
+                    scientific.setNumber(1, power);
+                    double pangkat = scientific.exponentiation();
+                    System.out.println("\nHasil\t: " + pangkat);
+                    break;
+
+                case 3:
+                    System.out.print("Masukkan angka\t: ");
+                    number = scanner.nextDouble();
+                    scanner.nextLine();
+                    double faktorial = scientific.factorial(number);
+                    System.out.println("\nHasil\t: " + faktorial);
+                    break;
+                default:
+                    System.out.println("\nOperasi tidak valid");
+                    break;
+            }
+            scientific.clear();
+        } else {
+            System.out.println("\nJenis kalkulator tidak valid");
+        }
+        scanner.close();
+    }
+}
