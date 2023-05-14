@@ -1,0 +1,30 @@
+package Tugas.com;
+
+public class ScientificCalculator extends Calculator {
+    public ScientificCalculator(int size) {
+        super(size);
+    }
+
+    public double squareRoot() {
+        return Math.sqrt(getNumbers()[0]);
+    }
+
+    public double calculate() {
+        return squareRoot();
+    }
+
+    public double exponentiation() {
+        double base = getNumbers()[0];
+        double exponent = getNumbers()[1];
+        return Math.pow(base, exponent);
+    }
+
+    public double factorial(double number) {
+        double result = 1;
+        while (number != 0) {
+            result *= number;
+            number--;
+        }
+        return result;
+    }
+}
